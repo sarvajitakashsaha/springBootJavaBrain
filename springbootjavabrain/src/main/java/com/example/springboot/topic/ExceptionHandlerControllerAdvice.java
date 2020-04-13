@@ -2,25 +2,18 @@ package com.example.springboot.topic;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 @ControllerAdvice
-public class ExceptionHandlerControllerAdvice {
-	
-//	@ExceptionHandler(DataNotFoundException.class)
-//	 @ResponseStatus(value = HttpStatus.NOT_IMPLEMENTED)
-//	public @ResponseBody ErrorMessage handleResourceNotFound(final DataNotFoundException exception,
-//			final HttpServletRequest request) {
-//
-//		ErrorMessage error = new ErrorMessage();
-//		error.setErrorMessage(exception.getMessage());
-//		error.callerURL(request.getRequestURI());
-//
-//		return error;
-//	}
+public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(DataNotFoundException.class)
 	@ResponseStatus(value = HttpStatus.NOT_IMPLEMENTED)
@@ -42,6 +35,7 @@ public class ExceptionHandlerControllerAdvice {
 		message.callerURL(request.getRequestURI());
 		return message;
 	}
+	
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -54,4 +48,18 @@ public class ExceptionHandlerControllerAdvice {
 
 		return error;
 	}
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		// TODO Auto-generated method stub
+		ErrorMessage error = new ErrorMessage();
+		error.setErrorMessage("not valid");	
+		error.callerURL(request.getDescription(true));
+
+		return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	
 }

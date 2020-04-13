@@ -2,10 +2,12 @@ package com.example.springboot.topic;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
-public class Topic {
+public class Topic{
 @Id
+@Size(min = 2)
 private String id;
 private String name;
 private String description;

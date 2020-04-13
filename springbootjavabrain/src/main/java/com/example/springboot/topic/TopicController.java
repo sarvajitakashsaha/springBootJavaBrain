@@ -1,12 +1,13 @@
 package com.example.springboot.topic;
 
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,15 +41,16 @@ public class TopicController {
 	@GetMapping("/topic/{id}")
 	public ResponseEntity<Optional<Topic>>  getTopic(@PathVariable("id") String id)  {
 		Optional<Topic> topic = topicService.getTopic(id);
-		System.out.println("topic value is " + topic.stream().count());
+	
 		if(topic.stream().count() == 0) {
 		throw  new DataNotFoundException("data not found");
 		}
 		else return  new ResponseEntity<Optional<Topic>>(topic, HttpStatus.FOUND);
 	}
 	@PostMapping("/topic")
-	public ResponseEntity<Topic>  addTopic(@RequestBody Topic topic) {
+	public ResponseEntity<Topic>  addTopic(@Valid @RequestBody Topic topic) {
 		Topic newTopic1 = topicService.addTopic(topic);
+		System.out.println("newTopiv1 is :::::" + newTopic1);
 		if(topic.getId().equals(newTopic1.getId())) {
 		//	return new ResponseEntity<Topic>(newTopic1, HttpStatus.CONFLICT);
 			throw new DataAlreadyPresentException(" This topic is already present");
