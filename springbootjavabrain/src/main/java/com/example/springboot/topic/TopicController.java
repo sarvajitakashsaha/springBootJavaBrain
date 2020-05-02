@@ -47,18 +47,28 @@ public class TopicController {
 		}
 		else return  new ResponseEntity<Optional<Topic>>(topic, HttpStatus.FOUND);
 	}
+	@GetMapping("topic1/{desc}")
+	public Topic getTopicByDesc(@PathVariable("desc") String description) {
+		Topic topic  = topicService.getTopicByDesc(description);
+		return topic;
+	}
 	@PostMapping("/topic")
 	public ResponseEntity<Topic>  addTopic(@Valid @RequestBody Topic topic) {
 		Topic newTopic1 = topicService.addTopic(topic);
 		System.out.println("newTopiv1 is :::::" + newTopic1);
-		if(topic.getId().equals(newTopic1.getId())) {
+		//if(topic.getId().equals(newTopic1.getId())) {
 		//	return new ResponseEntity<Topic>(newTopic1, HttpStatus.CONFLICT);
-			throw new DataAlreadyPresentException(" This topic is already present");
-		}else {
+		//	throw new DataAlreadyPresentException(" This topic is already present");
+	//	}else {
 		return new ResponseEntity<Topic>(newTopic1, HttpStatus.CREATED);
-		}
+		//}
 		
 	}
+	@PostMapping("/topic/noreturn")
+	public void addTopicNoReturn(@RequestBody Topic topic) {
+		topicService.addTopicReturnNull(topic);
+	}
+	
 	@PutMapping("/topic/{id}")
 	public ResponseEntity<Topic> updateTopic(@RequestBody Topic topic,@PathVariable("id")String id) {
 		Topic newTopic1 = topicService.updateTopic(id, topic);

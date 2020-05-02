@@ -32,11 +32,18 @@ public class TopicService {
 	 return topic;
 	 
  }
+ public Topic getTopicByDesc(String desc) {
+	 Topic topic  = topicRepository.findByDesc(desc);
+	 return topic;
+ }
  public Topic addTopic(Topic topic) {
-//	 topics.add(topic);
-//	 return topic;
 	 topicRepository.save(topic);
 	 return topic;
+ }
+ 
+ public void addTopicReturnNull(Topic topic) {
+	 topicRepository.save(topic);
+	 
  }
  public Topic updateTopic(String id,Topic topic) {
 //	 for(int i = 0 ; i <topics.size();i++) {

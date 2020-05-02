@@ -1,6 +1,8 @@
 package com.example.springboot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -26,7 +28,7 @@ import com.example.springboot.topic.TopicService;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest
-public class TopicTest {
+public class TopicMockitoTest {
 	
 	@Autowired
 	private TopicService service ;
@@ -34,6 +36,7 @@ public class TopicTest {
 	private TopicRepository repository;
 	 @Before
 	    public void init() {
+	
 	        MockitoAnnotations.initMocks(this);
 	    }
 	@Test
@@ -59,6 +62,16 @@ public class TopicTest {
 		//service.addTopic(t2);
 				
 	}
+	@Test
+	public void addTopicReturnNull() {
+		 TopicService r= mock(TopicService.class);
+		Topic t2 = new Topic("java1","java frame work"," java desc");
+		doNothing().doThrow(new RuntimeException())
+		.when(r).addTopicReturnNull(t2);
+		service.addTopicReturnNull(t2);
+		verify(repository,times(1)).save(t2);
+	}
+	
 	@Test
 	public void deleteTopicTest() {
 		List<Topic> topic = new ArrayList<Topic>();
