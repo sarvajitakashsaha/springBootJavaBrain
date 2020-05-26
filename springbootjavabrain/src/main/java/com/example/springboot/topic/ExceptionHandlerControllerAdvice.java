@@ -36,6 +36,18 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 		return message;
 	}
 	
+	
+	@ExceptionHandler(InvalidHeaderFieldException.class)
+	@ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
+	@ResponseBody
+	public ErrorMessage handleInvalidHeaderException(final InvalidHeaderFieldException exception ,final HttpServletRequest request) {
+		ErrorMessage message = new ErrorMessage();
+		message.setErrorMessage(exception.getMessage());
+		message.callerURL(request.getRequestURI());
+		return message;
+	}
+	
+	
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)

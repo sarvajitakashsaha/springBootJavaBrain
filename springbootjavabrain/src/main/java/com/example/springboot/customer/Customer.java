@@ -41,9 +41,9 @@ public class Customer {
 
 
 
-	public List<Product> getProducts() {
-		return products;
-	}
+//	public List<Product> getProducts() {
+//		return products;
+//	}
 
 
 
