@@ -19,7 +19,7 @@ public class SpringbootjavabrainApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootjavabrainApplication.class, args);
-		System.out.println("hi spring boot >>>>>>>> started");
+		System.out.println(" Application started");
 	}
 	public static final Contact DEFAULT_CONTACT = new Contact() {
 		
