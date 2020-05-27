@@ -20,6 +20,7 @@ public class SpringbootjavabrainApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootjavabrainApplication.class, args);
 		System.out.println(" Application started");
+		System.out.println("i am in master branch");
 	}
 	public static final Contact DEFAULT_CONTACT = new Contact() {
 		
