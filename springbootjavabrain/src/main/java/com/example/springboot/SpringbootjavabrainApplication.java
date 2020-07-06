@@ -23,6 +23,8 @@ public class SpringbootjavabrainApplication {
 		System.out.println("i am in master branch");
 		System.out.println("i am in develop branch");
 		System.out.println("develop br");
+		System.out.println("test branch");
+
 	}
 	public static final Contact DEFAULT_CONTACT = new Contact() {
 		
